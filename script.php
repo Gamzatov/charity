@@ -1,28 +1,11 @@
 <?php
-
-$name = $_POST['name'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$msg = $_POST['text'];
-$token = "5526800252:AAEemuLxqoLH8YvfsjB-rWcL4lF3_F-zQYg";
-$chat_id = "-1001598073747";
-$arr = array(
-  'Имя пользователя: ' => $name,
-  'Телефон: ' => $phone,
-  'Email' => $email,
-  'Сообщение:' => $msg
-);
-
-foreach($arr as $key => $value) {
-  $txt .= "<b>".$key."</b> ".$value."%0A";
-};
-
-$sendToTelegram = fopen("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$chat_id}&parse_mode=html&text={$txt}","r");
-
-if ($sendToTelegram && $sendToTelegram2) {
-  header('Location: thanks.html');
-} else {
-  echo "Error";
-}
-header("Location: ./thanks.html");
+$to = "dirksenartem@gmail.com"; // емайл получателя данных из формы
+$tema = "Народна Коаліція"; // тема полученного емайла
+$message = "Ваше имя: ".$_POST['name']."<br>";//присвоить переменной значение, полученное из формы name=name
+$message .= "E-mail: ".$_POST['email']."<br>"; //полученное из формы name=email
+$message .= "Номер телефона: ".$_POST['phone']."<br>"; //полученное из формы name=phone
+$message .= "Сообщение: ".$_POST['text']."<br>"; //полученное из формы name=message
+$headers = 'MIME-Version: 1.0' . "\r\n"; // заголовок соответствует формату плюс символ перевода строки
+$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; // указывает на тип посылаемого контента
+mail($to, $tema, $message, $headers); //отправляет получателю на емайл значения переменных
 ?>
